@@ -69,7 +69,6 @@ while state == "playing"
   end
 
   ## Then it's the dealers turn.
-
   state = "end it"
 end
 
