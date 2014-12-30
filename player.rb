@@ -3,10 +3,11 @@ require './deck'
 
 # The primary player object.
 class Player
-  attr_accessor :cards
+  attr_accessor :cards, :name
   
   def initialize
     @cards = []
+    @name = "Player"
   end
 
   def contains_ace?
@@ -51,7 +52,7 @@ class Player
   end
 
   def hand
-    hand = "You hold"
+    hand = "#{@name} hold"
     @cards.each_with_index do |card, index|
       if index == @cards.size - 1
         hand = hand + " and a #{card.to_s}. Totaling: #{card_value}"
