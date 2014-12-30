@@ -13,6 +13,10 @@ class Card
     end
   end
 
+  def is_ace?
+    true unless @face_value != "A"
+  end
+
   def to_s
     "#{@face_value.capitalize} of #{@suit.capitalize}s"
   end

@@ -34,10 +34,35 @@ class Dealer
     player.cards.push card
   end
 
+  def contains_ace?
+    contains_ace = false
+    @cards.each do |card|
+      if card.face_value == "A"
+        contains_ace = true
+      end
+    end
+    contains_ace
+  end
+
   def card_value
     value = 0
-    @cards.each do |card|
-      value += card.actual_value
+    if contains_ace?
+      upper_value = 0
+      lower_value = 0
+      @cards.each do |card|
+        if card.is_ace?
+          upper_value += 11
+          lower_value += 1
+        else
+          upper_value += card.actual_value
+          lower_value += card.actual_value
+        end
+      end
+      value = "Upper value of #{upper_value} or lower value of #{lower_value}"
+    else
+      @cards.each do |card|
+        value += card.actual_value
+      end
     end
     value
   end
