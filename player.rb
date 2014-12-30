@@ -23,20 +23,27 @@ class Player
   def card_value
     value = 0
     if contains_ace?
-      upper_value = 0
-      lower_value = 0
-      @cards.each do |card|
-        if card.is_ace?
-          upper_value += 11
-          lower_value += 1
-        else
-          upper_value += card.actual_value
-          lower_value += card.actual_value
-        end
-      end
-      value = "Upper value of #{upper_value} or lower value of #{lower_value}"
+      value = "#{upper_value} or #{lower_value}"
     else
-      @cards.each do |card|
+      value = upper_value
+    end
+    value
+  end
+
+  def upper_value
+    value = 0
+    @cards.each do |card|
+      value += card.actual_value
+    end
+    value
+  end
+
+  def lower_value
+    value = 0
+    @cards.each do |card|
+      if card.is_ace?
+        value += 1
+      else
         value += card.actual_value
       end
     end
@@ -44,15 +51,23 @@ class Player
   end
 
   def is_bust?
-    if card_value > 21
-      true
-    else 
-      false
+    if contains_ace?
+      if lower_value > 21
+        true
+      else 
+        false
+      end
+    else
+      if card_value > 21
+        true
+      else 
+        false
+      end
     end
   end
 
   def hand
-    hand = "#{@name} hold"
+    hand = "#{@name} holds"
     @cards.each_with_index do |card, index|
       if index == @cards.size - 1
         hand = hand + " and a #{card.to_s}. Totaling: #{card_value}"

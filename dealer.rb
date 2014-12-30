@@ -35,4 +35,10 @@ class Dealer < Player
     puts "The Dealer draws you a card. It's a #{card.to_s}"
     player.cards.push card
   end
+
+  def hit_yourself
+    card = @deck.draw
+    puts "The Dealer draws a card. It's a #{card.to_s}"
+    @cards.push card
+  end
 end
