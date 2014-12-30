@@ -56,7 +56,7 @@ while state == "playing"
   ## Ask the player if he wants to Hit or Stand
   puts 'What will you do? (H)it or (S)tand?'
   key = Utilities::wait_for_instruction_key
-
+  sleep(1)
   ## If he hits, we deal him a card. otherwise we skip to dealer.
   if key == 'H'
     dealer.hit_me(player)
@@ -65,23 +65,29 @@ while state == "playing"
     puts player.hand + "\n\n"
 
     bust = player.is_bust?
-
-    if bust
-      puts "You bust your hand, like some sort of noob."
-      state = "end it"
-    end
   elsif key == 'S'
     puts "Your decide it's best to stand.\n\n"
     sleep(1)
   end
 
-  ## Then it's the dealers turn.
-  puts 'The Dealer evaluates his hand, and his life descisions.'
-
-  if dealer.should_hit?
-    dealer.hit_yourself
+  if bust
+    puts "Turns out that you busted your hand, what a noob.\n\n"
+    puts "            ~~~~ DEALER WINS ~~~~~\n\n"
+    break
   end
-
+  sleep(1)
+  ## Then it's the dealers turn.
+  puts "The Dealer evaluates his hand, and his life descisions.\n\n"
+  sleep(1)
+  if dealer.should_hit?
+    puts "The Dealer decides it's time to take a hit."
+    dealer.hit_yourself
+    puts "\n\nThe dealer voices his hand."
+    puts player.hand + "\n\n"
+  else
+    puts "He seems to think he should take it easy here...\n\n"
+  end
+  sleep(1)
 end
 
 puts "The next card in the deck was going to be a #{dealer.deck.draw.to_s}"
