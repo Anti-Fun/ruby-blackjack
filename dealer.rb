@@ -41,4 +41,24 @@ class Dealer < Player
     puts "The Dealer draws a card. It's a #{card.to_s}"
     @cards.push card
   end
+
+  def should_hit?
+    value = false
+    if contains_ace?
+      if upper_value > 21
+        if lower_value < 16
+          value = true
+        end
+      else
+        if upper_value < 19
+          value = true
+        end
+      end
+    else
+      if card_value < 16
+        value = true
+      end
+    end
+    value
+  end
 end

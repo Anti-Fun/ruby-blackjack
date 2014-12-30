@@ -66,14 +66,22 @@ while state == "playing"
 
     bust = player.is_bust?
 
+    if bust
+      puts "You bust your hand, like some sort of noob."
+      state = "end it"
+    end
   elsif key == 'S'
     puts "Your decide it's best to stand.\n\n"
     sleep(1)
   end
 
   ## Then it's the dealers turn.
+  puts 'The Dealer evaluates his hand, and his life descisions.'
 
-  state = "end it"
+  if dealer.should_hit?
+    dealer.hit_yourself
+  end
+
 end
 
 puts "The next card in the deck was going to be a #{dealer.deck.draw.to_s}"

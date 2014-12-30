@@ -23,7 +23,11 @@ class Player
   def card_value
     value = 0
     if contains_ace?
-      value = "#{upper_value} or #{lower_value}"
+      if upper_value > 21
+        value = lower_value
+      else
+        value = "#{upper_value} or #{lower_value}"
+      end
     else
       value = upper_value
     end
