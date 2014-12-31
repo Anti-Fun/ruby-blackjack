@@ -29,6 +29,10 @@ class Card
     true unless @face_value != 'A'
   end
 
+  def ==(other)
+    @suit == other.suit && @face_value == other.face_value
+  end
+
   def to_s
     "#{@face_value.capitalize} of #{@suit.capitalize}s"
   end
