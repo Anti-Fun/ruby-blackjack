@@ -126,15 +126,6 @@ while state == 'playing'
     Utilities.pause
   end
 
-  if player_bust
-    puts 'Turns out that you busted your hand, what a noob.'
-    Utilities.print_break
-    puts '            ~~~~ DEALER WINS ~~~~~'
-    Utilities.print_break
-    break
-  end
-  Utilities.pause
-
   ##################
   ## DEALERS TURN ##
   ##################
@@ -152,17 +143,30 @@ while state == 'playing'
     puts 'The dealer voices his hand.'
     puts dealer.hand
     Utilities.print_break
+
+    if player.best_hand != 21 && dealer.best_hand == 21
+      puts 'Looks like you all be dead' 
+      state = 'dealer_wins'
+    end
   else
     dealer_command = 'stand'
-
-    puts 'He seems to think he should take it easy here...' if player.card_value != 21
+    puts 'He seems to think he should take it easy here...'
     Utilities.print_break
   end
 
   #####################
   ## EVALUATE WINNER ##
   #####################
-  if dealer_command == 'stand' && !player_bust
+  break if state == 'dealer_wins'
+
+  if player_bust
+    state = 'dealer_wins'
+
+    puts 'Turns out that you busted your hand, what a noob.'
+    Utilities.print_break
+    puts '            ~~~~ DEALER WINS ~~~~~'
+    Utilities.print_break
+  elsif dealer_command == 'stand' && !player_bust && player_command != 'hit'
     if dealer.best_hand > player.best_hand
       # Dealer Wins
       puts 'Looks like the dealer wins!'
