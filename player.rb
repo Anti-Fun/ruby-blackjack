@@ -55,19 +55,13 @@ class Player
   end
 
   def bust?
+    result = false
     if contains_ace?
-      if lower_value > 21
-        true
-      else
-        false
-      end
+      result = true if lower_value > 21
     else
-      if card_value > 21
-        true
-      else
-        false
-      end
+      result = true if card_value > 21
     end
+    result
   end
 
   def hand
