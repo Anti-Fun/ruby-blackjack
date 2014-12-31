@@ -4,8 +4,8 @@ require './utilities'
 require './dealer'
 require './player'
 
-Utilities::clear_console
-puts "\n\n"
+Utilities.clear_console
+Utilities.print_break
 puts '============================================================'
 puts '============ Ultimate BlackJack Simulator 2015 ============='
 puts '============================================================'
@@ -18,77 +18,103 @@ puts '=                                                          ='
 puts '=           ~ ~ ~  Press any key to Begin  ~ ~ ~           ='
 puts '=                                                          ='
 puts '============================================================'
-Utilities::wait_for_any_key
-Utilities::clear_console
+Utilities.wait_for_any_key
 
+Utilities.clear_console
 puts '=                                                          ='
 puts '============================================================'
-puts "\n\nThe dealer will now take a seat, he invites you to sitdown"
-puts "and begins to unpack a deck of cards in front of you.\n\n"
+Utilities.print_break
+puts 'The dealer stands alone at his table, he invites you to'
+puts 'sitdown and begins to unpack a deck of cards in front of you.'
+Utilities.print_break
+
 dealer = Dealer.new
 player = Player.new
-sleep(1)
 
-puts "The dealer will now proceed to shuffle the deck."
+puts 'The dealer will now proceed to shuffle the deck.'
 dealer.deck.shuffle
-sleep(1)
+Utilities.pause
 
-puts "The dealer proceeds to deal quietly.\n\n"
+puts 'The dealer proceeds to deal quietly.'
+Utilities.print_break
 dealer.deal_quietly(player)
-sleep(1)
+Utilities.pause
 
-puts "The dealer voices his hand."
-puts dealer.hand + "\n\n"
-sleep(1)
+puts 'The dealer voices his hand.'
+puts dealer.hand
+Utilities.print_break
+Utilities.pause
 
-puts "The dealer voices your hand."
-puts player.hand + "\n\n"
-sleep(1)
+puts 'The dealer voices your hand.'
+puts player.hand
+Utilities.print_break
+Utilities.pause
 
-puts "And so the game begins.....\n\n"
-state = "playing"
+puts 'And so the game begins.....'
+Utilities.print_break
 
-while state == "playing"
+state = 'playing'
 
-  ## First it's the players turn, and at the start we assume he isn't bust.
-  bust = false
+while state == 'playing'
+
+  ##################
+  ## PLAYERS TURN ##
+  ##################
+  player_bust = false
+  player_command = 'thinking'
 
   ## Ask the player if he wants to Hit or Stand
   puts 'What will you do? (H)it or (S)tand?'
-  key = Utilities::wait_for_instruction_key
-  sleep(1)
+  key = Utilities.wait_for_instruction_key
+  Utilities.pause
   ## If he hits, we deal him a card. otherwise we skip to dealer.
   if key == 'H'
+    puts '"HIT ME" you command the dealer.'
+    Utilities.print_break
+
     dealer.hit_me(player)
 
-    puts "\n\nThe dealer voices your hand."
-    puts player.hand + "\n\n"
+    puts 'The dealer voices your hand.'
+    puts player.hand
+    Utilities.print_break
 
-    bust = player.is_bust?
+    player_bust = player.bust?
   elsif key == 'S'
-    puts "Your decide it's best to stand.\n\n"
-    sleep(1)
+    puts 'Your decide it\'s best to stand. With a singular nod'
+    puts 'the dealer knows what to do....'
+    Utilities.print_break
+    Utilities.pause
   end
 
-  if bust
-    puts "Turns out that you busted your hand, what a noob.\n\n"
-    puts "            ~~~~ DEALER WINS ~~~~~\n\n"
+  if player_bust
+    puts 'Turns out that you busted your hand, what a noob.'
+    Utilities.print_break
+    puts '            ~~~~ DEALER WINS ~~~~~'
+    Utilities.print_break
     break
   end
-  sleep(1)
-  ## Then it's the dealers turn.
-  puts "The Dealer evaluates his hand, and his life descisions.\n\n"
-  sleep(1)
+  Utilities.pause
+
+  ##################
+  ## DEALERS TURN ##
+  ##################
+  puts 'The Dealer evaluates his hand, and his life descisions.'
+  Utilities.print_break
+  Utilities.pause
   if dealer.should_hit?
-    puts "The Dealer decides it's time to take a hit."
+    puts 'The Dealer decides it\'s time to take a hit.'
+    Utilities.print_break
+    Utilities.pause
     dealer.hit_yourself
-    puts "\n\nThe dealer voices his hand."
-    puts player.hand + "\n\n"
+
+    puts 'The dealer voices his hand.'
+    puts dealer.hand
+    Utilities.print_break
   else
-    puts "He seems to think he should take it easy here...\n\n"
+    puts 'He seems to think he should take it easy here...'
+    Utilities.print_break
   end
-  sleep(1)
+  Utilities.pause
 end
 
-puts "The next card in the deck was going to be a #{dealer.deck.draw.to_s}"
-
+puts "The next card in the deck was going to be a #{dealer.deck.draw}"

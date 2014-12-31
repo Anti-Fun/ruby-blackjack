@@ -7,13 +7,13 @@ class Player
   
   def initialize
     @cards = []
-    @name = "Player"
+    @name = 'Player'
   end
 
   def contains_ace?
     contains_ace = false
     @cards.each do |card|
-      if card.face_value == "A"
+      if card.face_value == 'A'
         contains_ace = true
       end
     end
@@ -54,17 +54,17 @@ class Player
     value
   end
 
-  def is_bust?
+  def bust?
     if contains_ace?
       if lower_value > 21
         true
-      else 
+      else
         false
       end
     else
       if card_value > 21
         true
-      else 
+      else
         false
       end
     end
@@ -74,9 +74,9 @@ class Player
     hand = "#{@name} holds"
     @cards.each_with_index do |card, index|
       if index == @cards.size - 1
-        hand = hand + " and a #{card.to_s}. Totaling: #{card_value}"
+        hand += " and a #{card}. Totaling: #{card_value}"
       else
-        hand = hand + " a #{card.to_s},"
+        hand += " a #{card},"
       end
     end
     hand

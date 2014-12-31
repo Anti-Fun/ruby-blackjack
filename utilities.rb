@@ -6,6 +6,14 @@ class Utilities
       system 'clear' or system 'cls'
     end
 
+    def print_break
+      puts "\n\n"
+    end
+
+    def pause
+      sleep(1)
+    end
+    
     def wait_for_any_key
       begin
         system("stty raw -echo")
@@ -53,5 +61,6 @@ class Utilities
         sleep 0.5
       end
     end
+
   end
 end
