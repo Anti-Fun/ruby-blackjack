@@ -49,6 +49,10 @@ puts player.hand
 Utilities.print_break
 Utilities.pause
 
+##############################
+## CHECK IF GAME WILL BEGIN ##
+##############################
+state = 'evaluating'
 if dealer.upper_value == 21 && player.upper_value != 21
   puts 'The dealer\'s eyes slowly glaze over, as a smile slowly'
   puts 'cracks across his face.'
@@ -62,6 +66,7 @@ if dealer.upper_value == 21 && player.upper_value != 21
   puts 'he cackles as the ground beneath your bar stoll opens up'
   puts 'and you fall into the depths of hell...'
   Utilities.pause
+  state = 'dealer_wins'
 elsif player.upper_value == 21 && dealer.upper_value != 21
   puts 'The dealer cringes after he voices your cards, he knows'
   puts 'what is about to happen.'
@@ -73,6 +78,10 @@ elsif player.upper_value == 21 && dealer.upper_value != 21
   puts 'From behind the same curtain another dealer nervously steps'
   puts 'up to the plate, and stutters as he asks "Care for another?"'
   Utilities.pause
+  state = 'player_wins'
+elsif player.upper_value == 21 && dealer.upper_value == 21
+  puts 'The table begins to rumble'
+  state = 'draw'
 else
   state = 'playing'
   puts 'And so the game begins.....'
@@ -89,7 +98,7 @@ while state == 'playing'
   player_command = 'thinking'
   dealer_command = 'thinking'
 
-  puts 'What will you do? (H)it or (S)tand?'
+  puts 'What will you do? (H)it, (S)tand or (L)eave?'
   key = Utilities.wait_for_instruction_key
   Utilities.pause
 

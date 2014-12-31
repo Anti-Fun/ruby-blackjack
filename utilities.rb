@@ -13,7 +13,7 @@ class Utilities
     def pause
       sleep(1)
     end
-    
+
     def wait_for_any_key
       begin
         system("stty raw -echo")
@@ -25,15 +25,17 @@ class Utilities
 
     def wait_for_instruction_key
       begin
-        system("stty raw -echo")
+        #system("stty raw -echo")
         str = STDIN.getc
       ensure
-        system("stty -raw echo")
+        #system("stty -raw echo")
       end
-      if str == "H" || str == "h"
-        return "H"
-      elsif str == "S" || str = "s"
-        return "S"
+      if str == 'H' || str == 'h'
+        return 'H'
+      elsif str == 'S' || str == 's'
+        return 'S'
+      elsif str == 'L' || str == 'l'
+        exit
       end
     end
 
