@@ -4,7 +4,7 @@ require './deck'
 # The primary player object.
 class Player
   attr_accessor :cards, :name
-  
+
   def initialize
     @cards = []
     @name = 'Player'
@@ -13,23 +13,19 @@ class Player
   def contains_ace?
     contains_ace = false
     @cards.each do |card|
-      if card.face_value == 'A'
-        contains_ace = true
-      end
+      contains_ace = true if card.face_value == 'A'
     end
     contains_ace
   end
 
   def card_value
-    value = 0
+    value = upper_value
     if contains_ace?
       if upper_value > 21
         value = lower_value
       else
         value = "#{upper_value} or #{lower_value}"
       end
-    else
-      value = upper_value
     end
     value
   end
