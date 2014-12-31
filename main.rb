@@ -35,8 +35,8 @@ dealer.deck.shuffle
 Utilities.pause
 
 puts 'The dealer proceeds to deal quietly.'
-Utilities.print_break
 dealer.deal_quietly(player)
+Utilities.print_break
 Utilities.pause
 
 puts 'The dealer voices his hand.'
