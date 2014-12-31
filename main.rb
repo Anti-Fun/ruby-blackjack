@@ -10,8 +10,7 @@ puts '============================================================'
 puts '============ Ultimate BlackJack Simulator 2015 ============='
 puts '============================================================'
 puts '=                                                          ='
-puts '=            - Voted No.1 BlackJack Simulator -            ='
-puts '=                     (by me *cough*)                      ='
+puts '=      - Voted No.1 BlackJack Simulator In Coburg -        ='
 puts '=                                                          ='
 puts '=                 made by Christos Hrousis                 ='
 puts '=                                                          ='
@@ -50,25 +49,53 @@ puts player.hand
 Utilities.print_break
 Utilities.pause
 
-puts 'And so the game begins.....'
-Utilities.print_break
-
-state = 'playing'
+if dealer.upper_value == 21 && player.upper_value != 21
+  puts 'The dealer\'s eyes slowly glaze over, as a smile slowly'
+  puts 'cracks across his face.'
+  Utilities.pause
+  puts 'His eyes make contact with yours and he announces that'
+  puts 'your soul is his.'
+  Utilities.pause
+  puts 'He removes his garments to reveal that he is the Devil.'
+  Utilities.pause
+  puts '"You did\'t really think you would get to play BlackJack"'
+  puts 'he cackles as the ground beneath your bar stoll opens up'
+  puts 'and you fall into the depths of hell...'
+  Utilities.pause
+elsif player.upper_value == 21 && dealer.upper_value != 21
+  puts 'The dealer cringes after he voices your cards, he knows'
+  puts 'what is about to happen.'
+  Utilities.pause
+  puts 'A businessman from behind the curtain appears and hands'
+  puts 'you your winnings. After he passes you the briefcase,'
+  puts 'the dealer is whisked away with a gun in his back.'
+  Utilities.pause
+  puts 'From behind the same curtain another dealer nervously steps'
+  puts 'up to the plate, and stutters as he asks "Care for another?"'
+  Utilities.pause
+else
+  state = 'playing'
+  puts 'And so the game begins.....'
+  Utilities.print_break
+end
 
 while state == 'playing'
 
   ##################
   ## PLAYERS TURN ##
   ##################
-  player_bust = false
+  player_bust =     false
+  dealer_bust =     false
   player_command = 'thinking'
+  dealer_command = 'thinking'
 
-  ## Ask the player if he wants to Hit or Stand
   puts 'What will you do? (H)it or (S)tand?'
   key = Utilities.wait_for_instruction_key
   Utilities.pause
-  ## If he hits, we deal him a card. otherwise we skip to dealer.
+
   if key == 'H'
+    player_command = 'hit'
+
     puts '"HIT ME" you command the dealer.'
     Utilities.print_break
 
@@ -80,6 +107,8 @@ while state == 'playing'
 
     player_bust = player.bust?
   elsif key == 'S'
+    player_command = 'stand'
+
     puts 'Your decide it\'s best to stand. With a singular nod'
     puts 'the dealer knows what to do....'
     Utilities.print_break
@@ -102,6 +131,8 @@ while state == 'playing'
   Utilities.print_break
   Utilities.pause
   if dealer.should_hit?
+    dealer_command = 'hit'
+
     puts 'The Dealer decides it\'s time to take a hit.'
     Utilities.print_break
     Utilities.pause
@@ -111,6 +142,8 @@ while state == 'playing'
     puts dealer.hand
     Utilities.print_break
   else
+    dealer_command = 'stand'
+
     puts 'He seems to think he should take it easy here...'
     Utilities.print_break
   end
