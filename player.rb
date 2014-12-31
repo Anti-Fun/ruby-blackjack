@@ -30,6 +30,10 @@ class Player
     value
   end
 
+  def best_hand
+    contains_ace? && upper_value > 21 ? lower_value : upper_value
+  end
+
   def upper_value
     value = 0
     @cards.each do |card|

@@ -114,6 +114,8 @@ while state == 'playing'
     puts player.hand
     Utilities.print_break
 
+    puts 'It\'s A BINGO! 21!' if player.card_value == 21
+
     player_bust = player.bust?
   elsif key == 'S'
     player_command = 'stand'
@@ -136,7 +138,7 @@ while state == 'playing'
   ##################
   ## DEALERS TURN ##
   ##################
-  puts 'The Dealer evaluates his hand, and his life descisions.'
+  puts 'The dealer evaluates his hand, and his life descisions.'
   Utilities.print_break
   Utilities.pause
   if dealer.should_hit?
@@ -153,9 +155,30 @@ while state == 'playing'
   else
     dealer_command = 'stand'
 
-    puts 'He seems to think he should take it easy here...'
+    puts 'He seems to think he should take it easy here...' if player.card_value != 21
     Utilities.print_break
   end
+
+  #####################
+  ## EVALUATE WINNER ##
+  #####################
+
+  if dealer_command == 'stand' && !player_bust
+    if dealer.best_hand > player.best_hand
+      # Dealer Wins
+      puts 'Looks like the dealer wins!'
+      state = 'dealer_wins'
+    elsif player.best_hand > dealer.best_hand
+      # Player Wins
+      puts 'Looks like you won!'
+      state = 'player_wins'
+    else
+      # Tie
+      puts 'It\'s a standoff!!!!'
+      state = 'tie'
+    end
+  end
+
   Utilities.pause
 end
 
