@@ -162,7 +162,6 @@ while state == 'playing'
   #####################
   ## EVALUATE WINNER ##
   #####################
-
   if dealer_command == 'stand' && !player_bust
     if dealer.best_hand > player.best_hand
       # Dealer Wins
