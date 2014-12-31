@@ -41,7 +41,7 @@ class Player
   def lower_value
     value = 0
     @cards.each do |card|
-      if card.is_ace?
+      if card.ace?
         value += 1
       else
         value += card.actual_value

@@ -25,10 +25,10 @@ class Utilities
 
     def wait_for_instruction_key
       begin
-        #system("stty raw -echo")
+        system("stty raw -echo")
         str = STDIN.getc
       ensure
-        #system("stty -raw echo")
+        system("stty -raw echo")
       end
       if str == 'H' || str == 'h'
         return 'H'

@@ -13,8 +13,20 @@ class Card
     end
   end
 
-  def is_ace?
-    true unless @face_value != "A"
+  def icons
+    heart = "\u2661".encode('utf-8')
+    spade = "\u2664".encode('utf-8')
+    diamond = "\u2662".encode('utf-8')
+    club = "\u2667".encode('utf-8')
+    { heart: heart, spade: spade, diamond: diamond, club: club }
+  end
+
+  def icon
+    icons[@suit.to_sym]
+  end
+
+  def ace?
+    true unless @face_value != 'A'
   end
 
   def to_s
