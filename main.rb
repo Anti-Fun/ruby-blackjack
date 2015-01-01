@@ -1,37 +1,17 @@
 #!/usr/bin/ruby
 
 require './utilities'
+require './display'
 require './dealer'
 require './player'
 require './blackjack'
 
-Utilities.clear_console
-Utilities.print_break
-puts '============================================================'
-puts '============ Ultimate BlackJack Simulator 2015 ============='
-puts '============================================================'
-puts '=                                                          ='
-puts '=      - Voted No.1 BlackJack Simulator In Coburg -        ='
-puts '=                                                          ='
-puts '=                 made by Christos Hrousis                 ='
-puts '=                                                          ='
-puts '=           ~ ~ ~  Press any key to Begin  ~ ~ ~           ='
-puts '=                                                          ='
-puts '============================================================'
-Utilities.wait_for_any_key
-
-Utilities.clear_console
-puts '=                                                          ='
-puts '============================================================'
-puts 'The dealer stands alone at his table, he invites you to'
-puts 'sitdown and begins to unpack a deck of cards in front of you.'
+Display.introduction
 
 dealer = Dealer.new
 player = Player.new
 
 loop do
-
-
   blackjack = Blackjack.new(dealer, player)
 
   puts 'The dealer asks, how much will you wager?'
