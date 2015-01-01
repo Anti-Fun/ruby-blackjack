@@ -29,6 +29,10 @@ class Card
     true unless @face_value != 'A'
   end
 
+  def same_value?(other)
+    @actual_value == other.actual_value
+  end
+
   def ==(other)
     @suit == other.suit && @face_value == other.face_value
   end

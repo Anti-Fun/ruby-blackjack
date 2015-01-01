@@ -36,6 +36,12 @@ class Utilities
         return 'S'
       elsif str == 'L' || str == 'l'
         exit
+      elsif str == 'T' || str == 't'
+        return 'T'
+      elsif str == 'W' || str == 'w'
+        return 'W'
+      elsif str == 'F' || str == 'f'
+        return 'F'
       end
     end
 

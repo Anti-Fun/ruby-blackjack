@@ -3,11 +3,12 @@ require './deck'
 
 # The primary player object.
 class Player
-  attr_accessor :cards, :name
+  attr_accessor :cards, :name, :money
 
   def initialize
     @cards = []
     @name = 'Player'
+    @money = 1_000
   end
 
   def contains_ace?
