@@ -3,6 +3,7 @@
 require './utilities'
 require './dealer'
 require './player'
+require './blackjack'
 
 Utilities.clear_console
 Utilities.print_break
@@ -29,13 +30,14 @@ Utilities.print_break
 
 dealer = Dealer.new
 player = Player.new
+blackjack = Blackjack.new(dealer, player)
 
 puts 'The dealer will now proceed to shuffle the deck.'
 dealer.deck.shuffle
 Utilities.pause
 
 puts 'The dealer proceeds to deal quietly.'
-dealer.deal_quietly(player)
+state = blackjack.deal_player
 Utilities.print_break
 Utilities.pause
 
@@ -52,43 +54,8 @@ Utilities.pause
 ##############################
 ## CHECK IF GAME WILL BEGIN ##
 ##############################
-state = 'evaluating'
-if dealer.upper_value == 21 && player.upper_value != 21
-  puts 'The dealer\'s eyes slowly glaze over, as a smile slowly'
-  puts 'cracks across his face.'
-  Utilities.pause
-  puts 'His eyes make contact with yours and he announces that'
-  puts 'your soul is his.'
-  Utilities.pause
-  puts 'He removes his garments to reveal that he is the Devil.'
-  Utilities.pause
-  puts '"You did\'t really think you would get to play BlackJack"'
-  puts 'he cackles as the ground beneath your bar stoll opens up'
-  puts 'and you fall into the depths of hell...'
-  Utilities.pause
-  state = 'dealer_wins'
-elsif player.upper_value == 21 && dealer.upper_value != 21
-  puts 'The dealer cringes after he voices your cards, he knows'
-  puts 'what is about to happen.'
-  Utilities.pause
-  puts 'A businessman from behind the curtain appears and hands'
-  puts 'you your winnings. After he passes you the briefcase,'
-  puts 'the dealer is whisked away with a gun in his back.'
-  Utilities.pause
-  puts 'From behind the same curtain another dealer nervously steps'
-  puts 'up to the plate, and stutters as he asks "Care for another?"'
-  Utilities.pause
-  state = 'player_wins'
-elsif player.upper_value == 21 && dealer.upper_value == 21
-  puts 'The table begins to rumble'
-  state = 'draw'
-else
-  state = 'playing'
-  puts 'And so the game begins.....'
-  Utilities.print_break
-end
 
-while state == 'playing'
+while state == 'play'
 
   ##################
   ## PLAYERS TURN ##

@@ -19,17 +19,6 @@ class Dealer < Player
     player.cards.push @deck.draw
   end
 
-  def deal_loudly(player)
-    puts 'Dealer draws his first card.'
-    @cards.push @deck.draw
-    puts 'Dealer draws your first card.'
-    player.cards.push @deck.draw
-    puts 'Dealer draws his second card.'
-    @cards.push @deck.draw
-    puts 'Dealer draws your second card.'
-    player.cards.push @deck.draw
-  end
-
   def hit_me(player)
     card = @deck.draw
     puts "The Dealer draws you a card. It's a #{card}"
