@@ -30,7 +30,7 @@ dealer = Dealer.new
 player = Player.new
 
 loop do
-  puts 'Another game on the devils table begins.'
+
 
   blackjack = Blackjack.new(dealer, player)
 
@@ -159,5 +159,12 @@ loop do
       end
     end
   end
+  
+  #############
+  ## CLEANUP ##
+  #############
+  dealer.cards = []
+  player.cards = []
   puts "The next card in the deck was going to be a #{dealer.deck.draw}"
+  puts 'Another game on the devils table begins.'
 end
