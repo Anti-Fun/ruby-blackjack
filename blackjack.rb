@@ -3,7 +3,7 @@ require './player'
 
 # BlackJack game object
 class Blackjack
-  attr_accessor :dealer, :player, :wager
+  attr_accessor :dealer, :player, :wager, :state
 
   def initialize(dealer, player)
     @dealer = dealer
@@ -25,5 +25,9 @@ class Blackjack
     h = Hash.new(0)
     @player.cards.each { |c| h[c.actual_value] += 1 }
     h.any? { |count| count > 1 }
+  end
+
+  def payout
+    wager * 2.5
   end
 end

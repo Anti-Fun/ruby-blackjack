@@ -29,10 +29,13 @@ puts 'sitdown and begins to unpack a deck of cards in front of you.'
 dealer = Dealer.new
 player = Player.new
 
-while true
+loop do
+  puts 'Another game on the devils table begins.'
+
   blackjack = Blackjack.new(dealer, player)
 
-  puts 'The dealer asks, how much will you wager? (T)en, T(w)enty-Five or (F)ifty?'
+  puts 'The dealer asks, how much will you wager?'
+  puts '(T)en, T(w)enty-Five or (F)ifty?'
   key = Utilities.wait_for_instruction_key
   if key == 'T'
     player.money -= 10
@@ -45,7 +48,7 @@ while true
     blackjack.wager = 50
   end
 
-  puts 'You shake your pocket, you estimate you have $#{player.money} left'
+  puts "You shake your pocket, you estimate you have $#{player.money} left"
 
   puts 'The dealer will now proceed to shuffle the deck.'
   dealer.deck.shuffle
@@ -74,7 +77,6 @@ while true
 
     puts 'What will you do? (H)it, (S)tand or (L)eave?'
     key = Utilities.wait_for_instruction_key
-    
 
     if key == 'H'
       player_command = 'hit'
@@ -97,7 +99,6 @@ while true
       puts 'Your decide it\'s best to stand. With a singular nod'
       puts 'the dealer knows what to do....'
       Utilities.print_break
-      
     end
 
     ##################
@@ -105,13 +106,13 @@ while true
     ##################
     puts 'The dealer evaluates his hand, and his life descisions.'
     Utilities.print_break
-    
+
     if dealer.should_hit?
       dealer_command = 'hit'
 
       puts 'The Dealer decides it\'s time to take a hit.'
       Utilities.print_break
-      
+
       dealer.hit_yourself
 
       puts 'The dealer voices his hand.'
@@ -119,8 +120,8 @@ while true
       Utilities.print_break
 
       if player.best_hand != 21 && dealer.best_hand == 21
-        puts 'Looks like you all be dead' 
-        state = 'dealer_wins'
+        puts 'Looks like you all be dead'
+        blackjack.state = 'dealer_wins'
       end
     else
       dealer_command = 'stand'
@@ -131,10 +132,10 @@ while true
     #####################
     ## EVALUATE WINNER ##
     #####################
-    break if state == 'dealer_wins'
+    break if blackjack.state == 'dealer_wins'
 
     if player_bust
-      state = 'dealer_wins'
+      blackjack.state = 'dealer_wins'
 
       puts 'Turns out that you busted your hand, what a noob.'
       Utilities.print_break
@@ -144,20 +145,19 @@ while true
       if dealer.best_hand > player.best_hand
         # Dealer Wins
         puts 'Looks like the dealer wins!'
-        state = 'dealer_wins'
+        blackjack.state = 'dealer_wins'
       elsif player.best_hand > dealer.best_hand
         # Player Wins
         puts 'Looks like you won!'
-        state = 'player_wins'
+        blackjack.state = 'player_wins'
+        player.money += blackjack.payout
       else
         # Tie
         puts 'It\'s a standoff!!!!'
-        state = 'tie'
+        blackjack.state = 'tie'
+        player.money += blackjack.wager
       end
     end
-
-    
   end
-
   puts "The next card in the deck was going to be a #{dealer.deck.draw}"
 end
